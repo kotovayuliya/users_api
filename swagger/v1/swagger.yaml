@@ -1,0 +1,103 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/users":
+    post:
+      summary: Creates a user
+      tags:
+      - users
+      parameters: []
+      responses:
+        '201':
+          description: user created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstname:
+                  type: string
+                lastname:
+                  type: string
+                salary:
+                  type: integer
+              required:
+              - firstname
+              - lastname
+              - salary
+          application/xml:
+            schema:
+              type: object
+              properties:
+                firstname:
+                  type: string
+                lastname:
+                  type: string
+                salary:
+                  type: integer
+              required:
+              - firstname
+              - lastname
+              - salary
+  "/api/v1/users/{id}":
+    get:
+      summary: Retrieves a user
+      tags:
+      - users
+      parameters:
+      - firstname: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: firstname found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  firstname:
+                    type: string
+                  lastname:
+                    type: string
+                  salary:
+                    type: integer
+                required:
+                - id
+                - firstname
+                - lastname
+                - salary
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  firstname:
+                    type: string
+                  lastname:
+                    type: string
+                  salary:
+                    type: integer
+                required:
+                - id
+                - firstname
+                - lastname
+                - salary
+        '404':
+          description: user not found
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
